@@ -56,7 +56,7 @@ def save_data(data, file_path):
                                     row["Volume"], row["Market Cap"]])
         print(f"Данные сохранены в {file_path}")
     except IOError as e:
-        print(f'Ошибка сохранения данных в{file_path}: {e}')
+        print(f'Ошибка сохранения данных в {file_path}: {e}')
 
-# Указываем путь для сохранения файла
+# Путь для сохранения файла
 save_data(data, "Sem_4/DZ/DZ.csv")
