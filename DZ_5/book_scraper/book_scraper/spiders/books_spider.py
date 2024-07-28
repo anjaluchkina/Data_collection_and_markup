@@ -30,8 +30,9 @@ class BooksSpiderSpider(scrapy.Spider):
         product_description = response.xpath('//meta[@name="description"]/@content').get()
 
         yield {
-            'title': title,
-            'price': price,
-            'availability': availability,
-            'product_description': product_description.strip() if product_description else None
+            'Название': title,
+            'Цена': price,
+            'Наличие': availability,
+            'Описание': product_description.strip() if product_description else None
+
         }
