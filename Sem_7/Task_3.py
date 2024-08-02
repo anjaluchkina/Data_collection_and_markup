@@ -28,6 +28,8 @@ try:
     driver.get(url)
     # ожидаем подгрузку всех элементов тела
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+# после запуска веб-драйвера, он загружает указанную страницу. 
+# Используется WebDriverWait, чтобы подождать, пока загрузится элемент <body> страницы (с максимальным временем ожидания 5 секунд).
 
     scroll_pause = 2
     page_height = driver.execute_script('return document.documentElement.scrollHeight')  # высота экрана
@@ -38,15 +40,18 @@ try:
         if new_height == page_height:
             break
         page_height = new_height
+#Настраивается пауза для прокрутки, и инициализируется высота страницы. 
+# Цикл while выполняет прокрутку вниз до тех пор, пока не достигнет конца страницы. Если высота страницы не меняется после прокрутки, цикл прекращается
 
     video_titles_xpath = "//*[@id='video-title-link']"
     metadata_xpath = "//div[@id='metadata-line']/span[1]"
     published_xpath = "//div[@id='metadata-line']/span[2]"
-    # Определяет XPATH для селекторов, чтобы получить названия видео, данные о просмотрах и дату публикации
+# Задается XPath для соответствующих элементов страницы: заголовков видео, метаданных (количество просмотров) и даты публикации
 
     video_titles = driver.find_elements(By.XPATH, video_titles_xpath)
     metadata_elements = driver.find_elements(By.XPATH, metadata_xpath)
     published_elements = driver.find_elements(By.XPATH, published_xpath)
+# Используется методы find_elements() для извлечения всех элементов на странице по заранее заданным XPath-выражениям
 
     video_data = {}
     for i in range(min(len(video_titles), len(metadata_elements))):
@@ -57,13 +62,11 @@ try:
         time_ago = published_elements[i].text
 
         video_data[title] = {'views': view.strip(), 'published': time_ago.strip()}
-    # Извлекает текст из найденных элементов и сохраняет данные в словарь video_data, 
-    # где ключ — это название видео, а значение — данные о просмотрах и дате публикации
+# Извлекаются текстовые данные (заголовок, количество просмотров и дату публикации) и добавляются в словарь
 
-    with open('video_data.json', 'w', encoding='UTF-8', newline='') as f:
+    with open('Sem_7/video_data.json', 'w', encoding='UTF-8', newline='') as f:
         json.dump(video_data, f, ensure_ascii=False, indent=4)
-    print('Данные сохранены в файл video_data.json')
-# Записывает собранные данные в файл video_data.json в формате JSON
+    print('Данные сохранены в файл Sem_7/ video_data.json')
 
 except Exception as e:
     print(f'Произошла ошибка: {e}')
