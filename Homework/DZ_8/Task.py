@@ -65,10 +65,10 @@ df.info()
  25  MasVnrType     588 non-null    object  - 872  # мода
  26  MasVnrArea     1452 non-null   float64 - 8    # медиана
  30  BsmtQual       1423 non-null   object - 37    # Not indicated
- 31  BsmtCond       1423 non-null   object - 37    # Not indicated
+ 31  BsmtCond       1423 non-null   object - 37    # Удалить не осообо важен
  32  BsmtExposure   1422 non-null   object - 38    # Not indicated
- 33  BsmtFinType1   1423 non-null   object - 37    # Not indicated
- 35  BsmtFinType2   1422 non-null   object - 38    # Not indicated
+ 33  BsmtFinType1   1423 non-null   object - 37    # Удалить не осообо важен
+ 35  BsmtFinType2   1422 non-null   object - 38    # Удалить не осообо важен
  42  Electrical     1459 non-null   object - 1     # мода
  57  FireplaceQu    770 non-null    object - 690   # мода
  58  GarageType     1379 non-null   object - 81    # Not indicated 
@@ -101,15 +101,14 @@ if 'MasVnrArea' in df.columns:
     df['MasVnrArea'] = df['MasVnrArea'].fillna(df['MasVnrArea'].median())
 
 # Для других столбцов, где отсутствуют данные, заполняем их значением "не указано"('Not indicated')
-cols_not_indicated = ['BsmtQual', 'BsmtCond', 'BsmtExposure', 'BsmtFinType1', 
-                      'BsmtFinType2', 'GarageType', 'GarageFinish', 
+cols_not_indicated = ['BsmtQual', 'BsmtExposure', 'GarageType', 'GarageFinish', 
                       'GarageQual', 'GarageCond', 'Fence']
 for col in cols_not_indicated:
     if col in df.columns:
         df[col] = df[col].fillna('Not indicated')
 
 # Удаляем столбцы, в которых более 80% данных отсутствует 
-columns_to_drop = ['Alley', 'PoolQC', 'MiscFeature']
+columns_to_drop = ['Alley', 'BsmtCond', 'BsmtFinType1', 'BsmtFinType2', 'PoolQC', 'MiscFeature']
 df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
 
 # (чисто для меня)
