@@ -111,9 +111,6 @@ for col in cols_not_indicated:
 columns_to_drop = ['Alley', 'BsmtCond', 'BsmtFinType1', 'BsmtFinType2', 'PoolQC', 'MiscFeature']
 df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
 
-# (чисто для меня)
-#df.to_csv('Homework/DZ_8/cleaned_dataset.csv', index=False)
-
 # Проверяем наличие дублирующихся строк в датасете и выводим их количеств
 duplicates = df.duplicated().sum()
 print(f'Количество дублирующихся строк: {duplicates}')
@@ -265,7 +262,7 @@ plt.show()
 '''
 # Список столбцов для Label Encoding
 label_encoding_cols = ['ExterQual', 'KitchenQual', 'BsmtQual', 'GarageQual']
-# Список столбцов для One-Hot Encoding
+'''# Список столбцов для One-Hot Encoding
 one_hot_encoding_cols = ['MSZoning', 'Street', 'LotShape', 'LandContour', 
                          'Utilities', 'LotConfig', 'LandSlope', 
                          'Neighborhood', 'Condition1', 'Condition2', 
@@ -276,14 +273,14 @@ one_hot_encoding_cols = ['MSZoning', 'Street', 'LotShape', 'LandContour',
                          'Functional', 'FireplaceQu', 'GarageType', 
                          'GarageFinish', 'PavedDrive', 'Fence', 
                          'SaleType', 'SaleCondition']
-
+'''
 # Применяем Label Encoding
 for col in label_encoding_cols:
     le = LabelEncoder()
     df[col] = le.fit_transform(df[col])
 
-# Применяем One-Hot Encoding
-df = pd.get_dummies(df, columns=one_hot_encoding_cols, drop_first=True)
+'''# Применяем One-Hot Encoding
+df = pd.get_dummies(df, columns=one_hot_encoding_cols, drop_first=True)'''
 
 # 1. Общая площадь (сумма всех жилых и нежилых площадей)
 df['TotalSF'] = df['TotalBsmtSF'] + df['1stFlrSF'] + df['2ndFlrSF']
